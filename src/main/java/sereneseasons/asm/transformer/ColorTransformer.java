@@ -1,6 +1,9 @@
 package sereneseasons.asm.transformer;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -11,9 +14,50 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
 import net.minecraft.launchwrapper.IClassTransformer;
+import net.minecraft.launchwrapper.Launch;
 
 public class ColorTransformer implements IClassTransformer
 {
+    private static boolean fixedTransformerOrder = false;
+
+    /*
+     * Hack, we need to run after DragonAPI.
+     * Mixin forces us to run early, manually move us to the end.
+     */
+    private void fixTransformerOrder()
+    {
+        if (fixedTransformerOrder)
+            return;
+        fixedTransformerOrder = true;
+        try
+        {
+            Class<?> classLaunchClassLoader = Class.forName("net.minecraft.launchwrapper.LaunchClassLoader");
+            Field fieldTransformers = classLaunchClassLoader.getDeclaredField("transformers");
+            fieldTransformers.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            List<IClassTransformer> transformers = (List<IClassTransformer>) fieldTransformers.get(Launch.classLoader);
+            transformers = new ArrayList<IClassTransformer>(transformers);
+            IClassTransformer foundColorTransformer = null;
+            for (IClassTransformer transformer : transformers)
+            {
+                if (transformer instanceof ColorTransformer)
+                {
+                    foundColorTransformer = transformer;
+                }
+            }
+            if (foundColorTransformer != null)
+            {
+                transformers.remove(foundColorTransformer);
+                transformers.add(foundColorTransformer);
+            }
+            fieldTransformers.set(Launch.classLoader, transformers);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public byte[] transform(String name, String transformedName, byte[] bytes)
     {
@@ -24,6 +68,8 @@ public class ColorTransformer implements IClassTransformer
         {
             return bytes;
         }
+
+        fixTransformerOrder();
 
         ClassNode classNode = new ClassNode();
 
@@ -56,6 +102,7 @@ public class ColorTransformer implements IClassTransformer
             ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
             classNode.accept(writer);
             bytes = writer.toByteArray();
+            System.out.println("Transformed " + name);
         }
 
         return bytes;
