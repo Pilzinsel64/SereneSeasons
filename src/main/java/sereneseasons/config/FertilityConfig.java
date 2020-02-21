@@ -92,8 +92,11 @@ public class FertilityConfig
             "harvestcraft:lentilseedItem",
             "harvestcraft:quinoaseedItem",
 
-            "growthcraft_rice:rice",
-            "growthcraft_rice:riceCrop"
+            "Growthcraft|Rice:grc.rice",
+            "jaffa:kaleCrop",
+            "witchery:seedswormwood",
+            "witchery:garlic",
+            "Natura:NetherBerryBush",
         };
 
         public String [] summer_crops = new String[]
@@ -206,15 +209,17 @@ public class FertilityConfig
             "harvestcraft:sisalseedItem",
             "harvestcraft:taroseedItem",
 
-            "growthcraft_apples:apple_crop",
-            "growthcraft_apples:apple_sapling",
-            "growthcraft_apples:apple_leaves",
-            "growthcraft_hops:hop_seeds",
-            "growthcraft_hops:hops",
-            "growthcraft_milk:thistle_seed",
-            "growthcraft_milk:thistle",
-            "growthcraft_rice:rice",
-            "growthcraft_rice:riceCrop"
+            "Growthcraft|Apples:grc.appleSeeds",
+            "Growthcraft|Apples:grc.appleSapling",
+            "Growthcraft|Apples:grc.appleLeaves",
+            "Growthcraft|Hops:grc.hopSeeds",
+            "Growthcraft|Hops:grc.hops",
+            "Growthcraft|Milk:grcmilk.SeedThistle",
+            "Growthcraft|Milk:grcmilk.Thistle",
+            "Growthcraft|Rice:grc.rice",
+            "witchery:seedsmandrake",
+            "witchery:seedswormwood",
+            "Natura:NetherBerryBush",
         };
 
         public String [] autumn_crops = new String[]
@@ -228,7 +233,6 @@ public class FertilityConfig
             "minecraft:grass",
             "minecraft:red_mushroom",
             "minecraft:brown_mushroom",
-            "simplecorn:kernels",
 
             "harvestcraft:cornItem",
             "harvestcraft:artichokeItem",
@@ -283,19 +287,22 @@ public class FertilityConfig
             "harvestcraft:kohlrabiseedItem",
             "harvestcraft:quinoaseedItem",
 
-            "growthcraft_apples:apple_crop",
-            "growthcraft_apples:apple_sapling",
-            "growthcraft_apples:apple_leaves",
-            "growthcraft_grapes:grape_seed",
-            "growthcraft_grapes:native_grape_vine0",
-            "growthcraft_grapes:native_grape_vine1",
-            "growthcraft_grapes:native_grape_vine_leaves",
-            "growthcraft_hops:hop_seeds",
-            "growthcraft_hops:hops",
-            "growthcraft_milk:thistle_seed",
-            "growthcraft_milk:thistle",
-            "growthcraft_rice:rice",
-            "growthcraft_rice:riceCrop"
+            "Growthcraft|Apples:grc.appleSeeds",
+            "Growthcraft|Apples:grc.appleSapling",
+            "Growthcraft|Apples:grc.appleLeaves",
+            "Growthcraft|Grapes:grc.grapeSeeds",
+            "Growthcraft|Grapes:grc.grapes",
+            "Growthcraft|Hops:grc.hopSeeds",
+            "Growthcraft|Hops:grc.hops",
+            "Growthcraft|Milk:grcmilk.SeedThistle",
+            "Growthcraft|Milk:grcmilk.Thistle",
+            "Growthcraft|Rice:grc.rice",
+            "witchery:seedsartichoke",
+            "witchery:seedsbelladonna",
+            "Natura:NetherBerryBush",
+            "etfuturum:beetroot_seeds",
+            "ganyssurface:beetrootSeeds",
+            "simplecorn:kernels",
         };
 
         public String [] winter_crops = new String[]
@@ -303,7 +310,9 @@ public class FertilityConfig
             "minecraft:sapling",
             "minecraft:nether_wart",
             "minecraft:red_mushroom",
-            "minecraft:brown_mushroom"
+            "minecraft:brown_mushroom",
+            "witchery:seedssnowbell",
+            "Natura:NetherBerryBush",
         };
 	}
 }
