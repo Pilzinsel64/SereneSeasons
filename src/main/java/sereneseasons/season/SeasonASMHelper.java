@@ -44,7 +44,7 @@ public class SeasonASMHelper
         IBiomeMixin biomeMixin = (IBiomeMixin) biome;
         float temperature = biomeMixin.getFloatTemperatureOld(x, y, z);
 
-        if (BiomeConfig.enablesSeasonalEffects(biome) && !useUnmodifiedTemperature && SeasonsConfig.isDimensionWhitelisted(world.provider.dimensionId))
+        if (SeasonsConfig.isDimensionWhitelisted(world.provider.dimensionId) && BiomeConfig.enablesSeasonalEffects(biome) && !useUnmodifiedTemperature)
         {
             if (BiomeConfig.usesTropicalSeasons(biome))
             {
@@ -91,7 +91,7 @@ public class SeasonASMHelper
         IBiomeMixin biomeMixin = (IBiomeMixin) biome;
         float temperature = biomeMixin.getFloatTemperatureOld(x, y, z);
 
-        if (BiomeConfig.enablesSeasonalEffects(biome) && !useUnmodifiedTemperature && SeasonsConfig.isDimensionWhitelisted(world.provider.dimensionId))
+        if (SeasonsConfig.isDimensionWhitelisted(world.provider.dimensionId) && BiomeConfig.enablesSeasonalEffects(biome) && !useUnmodifiedTemperature)
         {
             if (BiomeConfig.usesTropicalSeasons(biome))
             {
@@ -146,7 +146,7 @@ public class SeasonASMHelper
         BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
         IBiomeMixin biomeMixin = (IBiomeMixin) biome;
 
-        if (BiomeConfig.usesTropicalSeasons(biome) && BiomeConfig.enablesSeasonalEffects(biome) && SeasonsConfig.isDimensionWhitelisted(world.provider.dimensionId))
+        if (SeasonsConfig.isDimensionWhitelisted(world.provider.dimensionId) && BiomeConfig.usesTropicalSeasons(biome) && BiomeConfig.enablesSeasonalEffects(biome))
         {
             Season.TropicalSeason tropicalSeason = seasonState.getTropicalSeason();
 
@@ -232,7 +232,7 @@ public class SeasonASMHelper
     public static boolean shouldRenderRainSnow(World world, BiomeGenBase biome)
     {
         IBiomeMixin biomeMixin = (IBiomeMixin) biome;
-        if (BiomeConfig.usesTropicalSeasons(biome) && BiomeConfig.enablesSeasonalEffects(biome) && SeasonsConfig.isDimensionWhitelisted(world.provider.dimensionId))
+        if (SeasonsConfig.isDimensionWhitelisted(world.provider.dimensionId) && BiomeConfig.usesTropicalSeasons(biome) && BiomeConfig.enablesSeasonalEffects(biome))
         {
             Season.TropicalSeason tropicalSeason = SeasonHelper.getSeasonState(world).getTropicalSeason();
 
@@ -254,7 +254,7 @@ public class SeasonASMHelper
 
     public static boolean shouldAddRainParticles(World world, BiomeGenBase biome)
     {
-        if (BiomeConfig.usesTropicalSeasons(biome) && BiomeConfig.enablesSeasonalEffects(biome) && SeasonsConfig.isDimensionWhitelisted(world.provider.dimensionId))
+        if (SeasonsConfig.isDimensionWhitelisted(world.provider.dimensionId) && BiomeConfig.usesTropicalSeasons(biome) && BiomeConfig.enablesSeasonalEffects(biome))
         {
             Season.TropicalSeason tropicalSeason = SeasonHelper.getSeasonState(world).getTropicalSeason();
 
