@@ -125,14 +125,14 @@ public class SeasonHandler implements SeasonHelper.ISeasonDataProvider
             {
                 int y = event.world.getPrecipitationHeight(x + k2, z + j3);
 
-                if (SeasonASMHelper.canBlockFreezeInSeason(event.world, x, y - 1, z, false, SeasonHelper.getSeasonState(event.world), true))
+                if (SeasonASMHelper.canBlockFreezeInSeason(event.world, x + k2, y - 1, z + j3, false, SeasonHelper.getSeasonState(event.world), true))
                 {
-                    event.world.setBlock(x, y - 1, z, Blocks.ice);
+                    event.world.setBlock(x + k2, y - 1, z + j3, Blocks.ice);
                 }
 
-                if (SeasonASMHelper.canSnowAtInSeason(event.world, x, y, z, true, SeasonHelper.getSeasonState(event.world), true))
+                if (SeasonASMHelper.canSnowAtInSeason(event.world, x + k2, y, z + j3, true, SeasonHelper.getSeasonState(event.world), true))
                 {
-                    event.world.setBlock(x, y, z, Blocks.snow_layer);
+                    event.world.setBlock(x + k2, y, z + j3, Blocks.snow_layer);
                 }
             }
         }
