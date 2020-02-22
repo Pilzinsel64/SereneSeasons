@@ -13,6 +13,7 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
+import cpw.mods.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.Launch;
 
@@ -102,7 +103,7 @@ public class ColorTransformer implements IClassTransformer
             ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
             classNode.accept(writer);
             bytes = writer.toByteArray();
-            System.out.println("Transformed " + name);
+            System.out.println("Transformed " + transformedName);
         }
 
         return bytes;
@@ -110,11 +111,11 @@ public class ColorTransformer implements IClassTransformer
 
     public static boolean isBlock(ClassReader classReader)
     {
-
         String superClassName = classReader.getSuperName();
 
         while (!superClassName.equals("java/lang/Object"))
         {
+            superClassName = FMLDeobfuscatingRemapper.INSTANCE.unmap(superClassName);
             if (superClassName.equals("net/minecraft/block/Block") || superClassName.equals("aji"))
             {
                 return true;
