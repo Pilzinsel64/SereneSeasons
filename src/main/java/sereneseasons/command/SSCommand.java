@@ -46,7 +46,7 @@ public class SSCommand extends CommandBase
     String[] getSeasons()
     {
         return new String[]
-        { "early_spring", "mid_spring", "late_spring", "early_summer", "mid_summer", "late_summer", "early_autum", "mid_autumn", "late_autumn", "early_winter", "mid_winter", "late_winter" };
+        { "early_spring", "mid_spring", "late_spring", "early_summer", "mid_summer", "late_summer", "early_autumn", "mid_autumn", "late_autumn", "early_winter", "mid_winter", "late_winter" };
     }
 
     @Override
