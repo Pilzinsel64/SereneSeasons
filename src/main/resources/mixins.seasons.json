@@ -7,6 +7,8 @@
     "mixins": [
         "WorldMixin",
         "BiomeMixin",
-        "BlockMixin"
+        "BlockMixin",
+        "ColorizerGrassMixin",
+        "ColorizerFoliageMixin"
   ]
 }
