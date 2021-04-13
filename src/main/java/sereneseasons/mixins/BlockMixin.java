@@ -43,13 +43,6 @@ public abstract class BlockMixin
 
     int handleGrass(IBlockAccess blockAccess, int x, int y, int z)
     {
-        BiomeGenBase biome = blockAccess.getBiomeGenForCoords(x, z);
-        if (BiomeConfig.enablesSeasonalEffects(biome))
-        {
-            SeasonTime calendar = SeasonHandler.getClientSeasonTime();
-            ISeasonColorProvider colorProvider = BiomeConfig.usesTropicalSeasons(biome) ? calendar.getTropicalSeason() : calendar.getSubSeason();
-            return SeasonColourUtil.applySeasonalGrassColouring(colorProvider, biome, colorMultiplierOld(blockAccess, x, y, z));
-        }
         return colorMultiplierOld(blockAccess, x, y, z);
     }
 
