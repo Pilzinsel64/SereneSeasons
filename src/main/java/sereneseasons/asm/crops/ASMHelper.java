@@ -127,7 +127,7 @@ public class ASMHelper
      */
     public static byte[] writeClassToBytes(ClassNode classNode)
     {
-        return writeClassToBytes(classNode, ClassWriter.COMPUTE_MAXS);
+        return writeClassToBytes(classNode, ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
     }
 
     /**
