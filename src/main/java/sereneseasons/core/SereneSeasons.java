@@ -16,6 +16,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import sereneseasons.api.SSBlocks;
 import sereneseasons.api.SSItems;
@@ -25,6 +26,7 @@ import sereneseasons.init.ModConfig;
 import sereneseasons.init.ModFertility;
 import sereneseasons.init.ModHandlers;
 import sereneseasons.init.ModItems;
+import serenetweaks.handlers.SnowRecalculationHandler;
 
 @Mod(modid = SereneSeasons.MOD_ID, version = SereneSeasons.MOD_VERSION, name = SereneSeasons.MOD_NAME, dependencies = "before: harvestcraft;before: BiomesOPlenty;")
 public class SereneSeasons
@@ -80,6 +82,7 @@ public class SereneSeasons
     public void init(FMLInitializationEvent event)
     {
         ModConfig.init(configDirectory);
+        MinecraftForge.EVENT_BUS.register(new SnowRecalculationHandler());
     }
 
     @EventHandler

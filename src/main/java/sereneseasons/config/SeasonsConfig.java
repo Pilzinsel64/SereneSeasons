@@ -21,12 +21,16 @@ public class SeasonsConfig extends ConfigHandler
     public static final String DIMENSION_SETTINGS = "Dimension Settings";
     public static final String CROP_FERTILITY_GENERAL = "Crop Fertility General Settings";
     public static final String CROP_FERTILITY_SEASONAL = "Crop Fertility Seasonal Settings";
+    public static final String TWEAKS = "SereneTweaks Settings";
 
     public boolean generateSnowAndIce;
     public boolean changeWeatherFrequency;
     
     public boolean changeGrassColour;
     public boolean changeFoliageColour;
+    
+    public  boolean shouldRecalculateSnow;
+    public int timeToRecalculateSnow;
     
     public String[] whitelistedDimensions;
 
@@ -54,6 +58,9 @@ public class SeasonsConfig extends ConfigHandler
 
             whitelistedDimensions = config.getStringList("Whitelisted Dimensions", DIMENSION_SETTINGS, new String[] { "0" }, "Seasons will only apply to dimensons listed here");
 
+    	    shouldRecalculateSnow = config.getBoolean("shouldRecalculateSnow", TWEAKS, true, "This setting determines if the server will recalculate snow based on the season as you explore your world.\nThis makes your world much prettier!");
+    		timeToRecalculateSnow = config.getInt("timeToRecalculateSnow", TWEAKS, 20, 0, 999999, "This setting determines how long a chunk must be unloaded in order to have its snow and ice recalculated.\nEnter a value in minutes.");
+    		
             loadFertilityConfig();
         }
         catch (Exception e)
