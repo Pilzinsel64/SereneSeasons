@@ -39,7 +39,7 @@ public abstract class BiomeMixin implements IBiomeMixin
     @SideOnly(Side.CLIENT)
     public abstract float getFloatRainfall();
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract int getModdedBiomeGrassColor(int original);
 
     public boolean canSpawnLightningBoltOld()
