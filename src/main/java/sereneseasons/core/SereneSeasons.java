@@ -5,6 +5,7 @@ import java.io.File;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -78,11 +79,14 @@ public class SereneSeasons
         proxy.registerRenderers();
     }
 
+    static SnowRecalculationHandler snowHandler;
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+    	snowHandler = new SnowRecalculationHandler();
         ModConfig.init(configDirectory);
-        MinecraftForge.EVENT_BUS.register(new SnowRecalculationHandler());
+        MinecraftForge.EVENT_BUS.register(snowHandler);
+        FMLCommonHandler.instance().bus().register(snowHandler);
     }
 
     @EventHandler
