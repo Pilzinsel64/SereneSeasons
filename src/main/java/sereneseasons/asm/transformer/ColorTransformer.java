@@ -62,6 +62,10 @@ public class ColorTransformer implements IClassTransformer
     @Override
     public byte[] transform(String name, String transformedName, byte[] bytes)
     {
+    	if (bytes == null)
+        {
+        	return null;
+        }
         ClassReader classReader = new ClassReader(bytes);
 
         boolean transform = isBlock(classReader);
