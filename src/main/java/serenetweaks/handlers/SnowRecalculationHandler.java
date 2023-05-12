@@ -49,11 +49,11 @@ public class SnowRecalculationHandler {
 			Chunk chunk = recalculationQueue.get(i);
 			if (chunk.isChunkLoaded && chunk.isTerrainPopulated) {
 				boolean success = true;
-				int posX = chunk.xPosition * 16;
-				int posZ = chunk.zPosition * 16;
 				for (int k2 = 0; k2 < 16; ++k2) {
 		            for (int j3 = 0; j3 < 16; ++j3) {
-		                int posY1 = chunk.getPrecipitationHeight(posX + k2, posZ + j3);
+		                int posX = chunk.xPosition * 16 + k2;
+		                int posZ = chunk.zPosition * 16 + j3;
+		                int posY1 = chunk.getPrecipitationHeight(k2, j3);
 		                int posY2 = posY1 - 1;
 	
 		                if (world.canBlockFreeze(posX, posY2, posZ, false)) {
@@ -64,7 +64,7 @@ public class SnowRecalculationHandler {
 		                	success = success && world.setBlock(posX, posY1, posZ, Blocks.snow_layer, 0, 2);
 		                }
 		                
-		                if (shouldMelt(world, posX, posZ)) {
+		                if (shouldMelt(world, posX, posY1, posZ)) {
 		                	if (world.getBlock(posX, posY2, posZ) == Blocks.ice) {
 		                		success = success && world.setBlock(posX, posY2, posZ, Blocks.water, 0, 2);
 		                	}
@@ -169,10 +169,10 @@ public class SnowRecalculationHandler {
 		}
 	}
 	
-	private boolean shouldMelt(World world, int x, int z) {
+	private boolean shouldMelt(World world, int x, int y, int z) {
 		BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
         SubSeason subSeason = SeasonHelper.getSeasonState(world).getSubSeason();
-        float f = SeasonASMHelper.getFloatTemperature(subSeason, biome, x, x, z);
+        float f = SeasonASMHelper.getFloatTemperature(subSeason, biome, x, y, z);
         
 		if (f >= 0.15F)
         {
