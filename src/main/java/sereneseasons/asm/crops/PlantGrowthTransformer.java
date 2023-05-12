@@ -51,7 +51,7 @@ public class PlantGrowthTransformer implements IClassTransformer
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass)
     {
-        if (HasAppleCore)
+        if (HasAppleCore || basicClass == null)
             return basicClass;
 
         boolean doTransform = false;
