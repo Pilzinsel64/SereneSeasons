@@ -3,13 +3,10 @@ package serenetweaks.handlers;
 import java.util.ArrayList;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.Type;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -108,31 +105,6 @@ public class SnowRecalculationHandler {
 	}
 
 	@SubscribeEvent
-	public void playerJoinedWorld(PlayerLoggedInEvent event) {
-		if (!ModConfig.seasons.shouldRecalculateSnow) {
-			return;
-		}
-		EntityPlayer player = event.player;
-		World world = player.worldObj;
-		if (world.provider.dimensionId != 0) {
-			return;
-		}
-		if (world.isRemote) {
-			return;
-		}
-		for (int i = -5; i < 5; i++) {
-			for (int j = -5; j < 5; j++) {
-				Chunk chunk = world.getChunkFromChunkCoords(((int) player.posX / 16) + i, ((int) player.posZ / 16) + j);
-				int currentTime = (int) (System.currentTimeMillis() / 1000 / 60);
-				int savedTime = TimeStampsWorldSavedData.getChunkTimeStamp(chunk);
-				if (currentTime - savedTime > ModConfig.seasons.timeToRecalculateSnow) {
-					recalculationQueue.add(chunk);
-				}
-			}
-		}
-	}
-
-	@SubscribeEvent
 	public void onChunkUnLoaded(ChunkEvent.Unload event) {
 		World world = event.world;
 		if (world.isRemote) {
@@ -145,26 +117,6 @@ public class SnowRecalculationHandler {
 		removeFromRecalculationQueue(chunk);
 		int currentTime = (int) (System.currentTimeMillis() / 1000 / 60);
 		TimeStampsWorldSavedData.setChunkTimeStamp(chunk, currentTime);
-	}
-
-	@SubscribeEvent
-	public void playerLeftWorld(PlayerLoggedOutEvent event) {
-		EntityPlayer player = event.player;
-		World world = player.worldObj;
-		if (world.provider.dimensionId != 0) {
-			return;
-		}
-		if (world.isRemote) {
-			return;
-		}
-		int currentTime = (int) (System.currentTimeMillis() / 1000 / 60);
-		for (int i = -5; i < 5; i++) {
-			for (int j = -5; j < 5; j++) {
-				Chunk chunk = world.getChunkFromChunkCoords(((int) player.posX / 16) + i, ((int) player.posZ / 16) + j);
-				removeFromRecalculationQueue(chunk);
-				TimeStampsWorldSavedData.setChunkTimeStamp(chunk, currentTime);
-			}
-		}
 	}
 
 	private boolean shouldMelt(World world, int x, int y, int z) {
