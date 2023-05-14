@@ -142,10 +142,9 @@ public class SnowRecalculationHandler {
 		if (world.provider.dimensionId != 0) {
 			return;
 		}
-		if (!removeFromRecalculationQueue(chunk)) {
-			int currentTime = (int) (System.currentTimeMillis() / 1000 / 60);
-			TimeStampsWorldSavedData.setChunkTimeStamp(chunk, currentTime);
-		}
+		removeFromRecalculationQueue(chunk);
+		int currentTime = (int) (System.currentTimeMillis() / 1000 / 60);
+		TimeStampsWorldSavedData.setChunkTimeStamp(chunk, currentTime);
 	}
 
 	@SubscribeEvent
@@ -162,9 +161,8 @@ public class SnowRecalculationHandler {
 		for (int i = -5; i < 5; i++) {
 			for (int j = -5; j < 5; j++) {
 				Chunk chunk = world.getChunkFromChunkCoords(((int) player.posX / 16) + i, ((int) player.posZ / 16) + j);
-				if (!removeFromRecalculationQueue(chunk)) {
-					TimeStampsWorldSavedData.setChunkTimeStamp(chunk, currentTime);
-				}
+				removeFromRecalculationQueue(chunk);
+				TimeStampsWorldSavedData.setChunkTimeStamp(chunk, currentTime);
 			}
 		}
 	}
