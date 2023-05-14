@@ -97,9 +97,9 @@ public class SnowRecalculationHandler {
 		if (world.provider.dimensionId != 0) {
 			return;
 		}
-		int currentTime = (int) (System.currentTimeMillis() / 1000 / 60);
+		int currentTime = (int)(chunk.worldObj.getWorldTime() / 20); // Time in seconds
 		int savedTime = TimeStampsWorldSavedData.getChunkTimeStamp(chunk);
-		if (currentTime - savedTime > ModConfig.seasons.timeToRecalculateSnow) {
+		if (currentTime - savedTime > ModConfig.seasons.timeToRecalculateSnow * 60) {
 			recalculationQueue.add(chunk);
 		}
 	}
@@ -115,7 +115,7 @@ public class SnowRecalculationHandler {
 			return;
 		}
 		removeFromRecalculationQueue(chunk);
-		int currentTime = (int) (System.currentTimeMillis() / 1000 / 60);
+		int currentTime = (int)(chunk.worldObj.getWorldTime() / 20); // Time in seconds
 		TimeStampsWorldSavedData.setChunkTimeStamp(chunk, currentTime);
 	}
 
